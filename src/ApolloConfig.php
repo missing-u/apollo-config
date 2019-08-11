@@ -8,41 +8,21 @@
 
 namespace ApolloConfig;
 
-use SimpleRequest\SimpleRequest;
+use ApolloConfig\Configs\ApolloConfigConfigInterface;
 
 class ApolloConfig
 {
-    public static function changeConnection($namespace, $id, $server)
-    {
+    private static $config_setting;
 
+    public static function get($key)
+    {
+        $config_setting = self::$config_setting;
+
+        ApolloConfigService::get($key, $config_setting);
     }
 
-    public static function get($key, $namespace, $app_id = null)
+    public static function change_default_config(ApolloConfigConfigInterface $config)
     {
-        $domain = ApolloConfigConfig::get_domain();
-
-        $app_id = ApolloConfigConfig::get_appid($app_id);
-
-        $cluster_name = ApolloConfigConfig::get_cluster_name();
-
-        $path = sprintf("configfiles/json/%s/%s/%s", $app_id, $cluster_name, $namespace);
-
-        SimpleRequest::setRequestDomain($domain);
-
-        SimpleRequest::setRequestIllumination("请求阿波罗");
-
-        $info = SimpleRequest::json_get($path, []);
-
-        return $info[ $key ];
-    }
-
-    public static function readFromCache()
-    {
-
-    }
-
-    public function writeToCache($namespace, $info)
-    {
-        
+        self::$config_setting = $config;
     }
 }

@@ -13,5 +13,11 @@ return [
     //缓存信息临时目录
     'snap_dir'          => 'apollo',
     //默认的命名空间
-    'default_namespace' => '',
+    'default_namespace' => 'default',
+
+    'default_app_id' => 'SampleApp',
+
+    'default_cluster_name' => 'default',
+
+    'default_domain' => 'http://apollo-dev.web-docker.saasyc.com',
 ];
